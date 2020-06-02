@@ -1,6 +1,3 @@
-# README of pyTrajectoryGenerator
-###### tags: `Self-Driving Car`, `README`
-
 # Introduction
 This is the python implementation of a model predictive path generation method. Only numpy is used in the implementaion. It can be easily incorporated to other application. 
 
