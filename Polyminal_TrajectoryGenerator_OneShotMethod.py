@@ -17,9 +17,11 @@ https://gitlab.com/autowarefoundation/autoware.ai/core_planning/-/blob/master/la
 
 import numpy as np
 
+for visualization and debugging
 import matplotlib.pyplot as plt
 import time
 import pdb
+
 class TrajectoryGenerator():
 
     def __init__(self):
@@ -300,7 +302,7 @@ def main():
     
     # final_state = [13.607331971206666, 8.3645834995470061, 1.2021703964156283, 0]
     final_state = [13.607331971206666, 0, 1.2021703964156283, 0]
-    final_state = [13.607331971206666, -8.3645834995470061, 1.2021703964156283, 0]
+    # final_state = [13.607331971206666, -8.3645834995470061, 1.2021703964156283, 0]
 
     traject = PathGenerator.compute_spline(initial_state, final_state)
     point_array = np.asarray(traject)
