@@ -229,8 +229,8 @@ class TrajectoryGenerator():
             converge = self._check_converge(final_state, final_state_pred)
             total_iter = total_iter +1
 
-            print(total_iter)
-            print(final_state_pred)
+            # print(total_iter)
+            # print(final_state_pred)
             # print(s)
 
         # sometimes it converge to negative s (travel distance) which 
