@@ -32,8 +32,8 @@ class TrajectoryGenerator():
         # criteria of terminal state
         self.acceptable_dx = 0.01 # m
         self.acceptable_dy = 0.01 # m
-        self.acceptable_dtheta = 1 # degree
-        self.acceptable_dkappa = 1 # 0.005 # 1/m
+        self.acceptable_dtheta = 1 *np.pi/180 # rad
+        self.acceptable_dkappa = 1 *np.pi/180 # rad
 
         # pertubation value
         self.pertub = 0.0001
@@ -50,9 +50,9 @@ class TrajectoryGenerator():
         """
         x_f = final_state[0]
         y_f = final_state[1]
-        theta_f = final_state[2] *np.pi/180 # rad
-        kappa_f = final_state[3] *np.pi/180 # rad
-        kappa_0 = initial_state[3]
+        theta_f = final_state[2] # rad
+        kappa_f = final_state[3] # rad
+        kappa_0 = initial_state[3] # rad
 
         
         d = np.sqrt(x_f**2 + y_f**2)
@@ -124,8 +124,8 @@ class TrajectoryGenerator():
         """
         x_0 = initial_state[0]
         y_0 = initial_state[1]
-        theta = initial_state[2] *np.pi/180 # rad
-        kappa = initial_state[3] *np.pi/180 # rad
+        theta = initial_state[2] # rad
+        kappa = initial_state[3] # rad
         theta_0 = np.copy(theta)
         kappa_0 = np.copy(kappa)
 
@@ -140,7 +140,6 @@ class TrajectoryGenerator():
         x_final = self._compute_x(x_0, theta_0, a_p, b_p, c_p, d_p, s)
         y_final = self._compute_y(y_0, theta_0, a_p, b_p, c_p, d_p, s)
 
-        theta_final = theta_final*180/np.pi # degree
         final_state_pred = [x_final, y_final, theta_final, kappa_final]
 
         return final_state_pred
@@ -255,8 +254,8 @@ class TrajectoryGenerator():
         """
         x_0 = initial_state[0]
         y_0 = initial_state[1]
-        theta_0 = initial_state[2] *np.pi/180 # rad
-        kappa_0 = initial_state[3]
+        theta_0 = initial_state[2] # rad
+        kappa_0 = initial_state[3] # rad
 
         x = np.copy(x_0)
         y = np.copy(y_0)
@@ -303,13 +302,15 @@ def main():
 
     x_0 = 0.0 # initial x position
     y_0 = 0.0 # initial y position
-    theta_0 = 0.0 # initial heading angle of the vehicle (degree)
-    kappa_0 = 0.0 # initial curvature 
+    theta_0 = 0.0 *np.pi/180  # initial heading angle of the vehicle 
+    kappa_0 = 0.0 *np.pi/180  # initial steering angle  
     initial_state = [x_0, y_0, theta_0, kappa_0] 
     
-    # final_state = [13.607331971206666, 8.3645834995470061, 1.2021703964156283, 0]
-    # final_state = [13.607331971206666, 0, 1.2021703964156283, 0]
-    final_state = [13.607331971206666, -8.3645834995470061, 1.2021703964156283, 0]
+    x_f = 13.0 # final x position
+    y_f = 8.0 # final y position
+    theta_f = 0.0 *np.pi/180  # final heading angle of the vehicle 
+    kappa_f = 0.0 *np.pi/180  # final steering angle  
+    final_state = [x_f, y_f, theta_f, kappa_f] 
 
     traject = PathGenerator.compute_spline(initial_state, final_state)
     point_array = np.asarray(traject)

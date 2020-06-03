@@ -5,6 +5,7 @@ This is the python implementation of a model predictive path generation method. 
 ```python
 
 from Polyminal_TrajectoryGenerator_OneShotMethod import TrajectoryGenerator
+
 PathGenerator = TrajectoryGenerator()
 
 ## coordinate
@@ -16,11 +17,15 @@ PathGenerator = TrajectoryGenerator()
 
 x_0 = 0.0 # initial x position
 y_0 = 0.0 # initial y position
-theta_0 = 0.0 # initial heading angle of the vehicle (degree)
-kappa_0 = 0.0 # initial curvature 
+theta_0 = 30.0 *np.pi/180  # initial heading angle of the vehicle 
+kappa_0 = 30.0 *np.pi/180  # initial steering angle  
 initial_state = [x_0, y_0, theta_0, kappa_0] 
     
-final_state = [13.607331971206666, 8.3645834995470061, 1.2021703964156283, 0]
+x_f = 8.0 # final x position
+y_f = 13.0 # final y position
+theta_f = 90.0 *np.pi/180  # final heading angle of the vehicle 
+kappa_f = 0.0 *np.pi/180  # final steering angle 
+final_state = [x_f, y_f, theta_f, kappa_f] 
 
 # compute trajectory in a list of point
 traject = PathGenerator.compute_spline(initial_state, final_state)
