@@ -17,7 +17,7 @@ https://gitlab.com/autowarefoundation/autoware.ai/core_planning/-/blob/master/la
 
 import numpy as np
 
-for visualization and debugging
+# for visualization and debugging
 import matplotlib.pyplot as plt
 import time
 import pdb
@@ -27,13 +27,13 @@ class TrajectoryGenerator():
     def __init__(self):
         
         self.is_converge = False
-        self.max_iter = 10
+        self.max_iter = 50
        
         # criteria of terminal state
-        self.acceptable_dx = 0.01 # 0.001 # m
-        self.acceptable_dy = 0.01 # 0.001 # m
-        self.acceptable_dtheta = 0.1 # rad
-        self.acceptable_dkappa = 0.005 # 1/m
+        self.acceptable_dx = 0.01 # m
+        self.acceptable_dy = 0.01 # m
+        self.acceptable_dtheta = 1 # degree
+        self.acceptable_dkappa = 1 # 0.005 # 1/m
 
         # pertubation value
         self.pertub = 0.0001
@@ -229,8 +229,8 @@ class TrajectoryGenerator():
             converge = self._check_converge(final_state, final_state_pred)
             total_iter = total_iter +1
 
-            # print(total_iter)
-            # print(final_state_pred)
+            print(total_iter)
+            print(final_state_pred)
             # print(s)
 
         # sometimes it converge to negative s (travel distance) which 
@@ -294,15 +294,22 @@ def main():
     """
     PathGenerator = TrajectoryGenerator()
     
+    ## coordinate 
+    # Y    
+    # ^   /
+    # |  /
+    # | / <theta>
+    # o -- -- -- >X
+
     x_0 = 0.0 # initial x position
     y_0 = 0.0 # initial y position
-    theta_0 = 0.0 # heading angle (degree)
-    kappa_0 = 0.0 # initial steering angle (degree)
+    theta_0 = 0.0 # initial heading angle of the vehicle (degree)
+    kappa_0 = 0.0 # initial curvature 
     initial_state = [x_0, y_0, theta_0, kappa_0] 
     
     # final_state = [13.607331971206666, 8.3645834995470061, 1.2021703964156283, 0]
-    final_state = [13.607331971206666, 0, 1.2021703964156283, 0]
-    # final_state = [13.607331971206666, -8.3645834995470061, 1.2021703964156283, 0]
+    # final_state = [13.607331971206666, 0, 1.2021703964156283, 0]
+    final_state = [13.607331971206666, -8.3645834995470061, 1.2021703964156283, 0]
 
     traject = PathGenerator.compute_spline(initial_state, final_state)
     point_array = np.asarray(traject)
